@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
         rel="stylesheet">
 
-    <title>Stand CSS Blog by TemplateMo</title>
+    <title>Stand Blog @isset($title) - {{ $title }} Page @endisset</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -55,33 +55,30 @@ https://templatemo.com/tm-551-stand-blog
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">Home
+                        <li class="nav-item {{  request()->routeIs('home') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('home') }}">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About Us</a>
+                        <li class="nav-item {{  request()->routeIs('about') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('about') }}">About Us</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="blog.html">Blog Entries</a>
+                        <li class="nav-item {{  request()->routeIs('posts') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('posts') }}">Blog Entries</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="post-details.html">Post Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        <li class="nav-item {{  request()->routeIs('contact') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
                         </li>
 
                         @if (Route::has('login'))
                             @auth
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                                    <a class="nav-link" href="{{ url('/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
                                 </li>
                             @else
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                                        aria-haspopup="true" aria-expanded="false">Account</a>
+                                        aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Account</a>
                                     <div class="dropdown-menu">
                                         <a href="{{ route('login') }}" class="dropdown-item">Log in</a>
                                         @if (Route::has('register'))
@@ -114,9 +111,9 @@ https://templatemo.com/tm-551-stand-blog
                 </div>
                 <div class="col-lg-12">
                     <div class="copyright-text">
-                        <p>Copyright 2020 Stand Blog Co.
+                        <p>Copyright 2021 <a rel="nofollow" href="https://github.com/gonzalovsilva" target="_blank">Gonçalo Silva</a>
 
-                            | Design: <a rel="nofollow" href="https://templatemo.com" target="_parent">TemplateMo</a>
+                            | Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a>
                         </p>
                     </div>
                 </div>
