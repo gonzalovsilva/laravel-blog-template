@@ -8,8 +8,9 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 - [x] add posts
 - [x] add pagination
 - [x] separate sections into components
-- [x] connect post images
-- [ ] post-categories relationship
+- [x] add post images
+- [x] post-categories relationship
+- [x] filter posts by category
 - [ ] post-tags relationship
 - [ ] post-comments relationship
 - [ ] search
@@ -24,4 +25,5 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 * reuse html as components with conditions & variables
 * custom pagination style
 * sql query optimisation thanks to Eloquent and clockwork
+* seed images from unsplash using factories and faker
 * 

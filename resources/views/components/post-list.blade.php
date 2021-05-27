@@ -6,7 +6,7 @@
                     <img src="/images/{{$post->img}}" alt="">
                 </div>
                 <div class="down-content">
-                    <span>Lifestyle</span>
+                    <span>{{ $post->category->name }}</span>
                     @if ($details)
                         <h4>{{ $post->title }}</h4>
                     @else

@@ -9,14 +9,16 @@ use Illuminate\View\Component;
 class SideBar extends Component
 {
     public $recentPosts;
+    public $categories;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($recentPosts=null)
+    public function __construct($recentPosts=null, $categories=null)
     {
         $this->recentPosts = $recentPosts;
+        $this->categories = $categories;
     }
 
     /**

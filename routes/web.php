@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostsController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
@@ -27,9 +28,14 @@ Route::get(
 )->name('posts');
 
 Route::get(
+    '/posts/category/{id}',
+    [PostsController::class, 'index']
+)->where('id', '[0-9]+');
+Route::get(
     '/posts/{post:slug}',
     [PostsController::class, 'show']
 );
+
 
 Route::get('/contact', fn () => view('contact'))->name('contact');
 

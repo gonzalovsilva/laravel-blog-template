@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -14,23 +15,32 @@ class PostsController extends Controller
      */
     public function home()
     {
+        $categories = Category::getCategories();
+
         $randomPosts = $this->getRandomPosts();
-        $posts = Post::with('user')->orderBy('id', 'desc')->take(6)->get();
+        $posts = Post::with(['user', 'category'])->orderBy('id', 'desc')->take(6)->get();
         $recentPosts = $posts->skip(3);
         $posts->splice(3);
 
         // dd($posts);
 
-        return view('welcome', compact('posts', 'recentPosts', 'randomPosts'));
+        return view('welcome', compact('posts', 'recentPosts', 'randomPosts', 'categories'));
     }
 
-    public function index($home = false)
+    public function index($id = null)
     {
+        $categories = Category::getCategories();
 
         $recentPosts = $this->getRecentPosts();
-        $posts = Post::with('user')->orderBy('id', 'desc')->paginate(6);
 
-        return view('posts', compact('posts', 'recentPosts'));
+        if($id != null)
+        {
+            $posts = Post::with(['user', 'category'])->where('category_id', $id)->orderBy('id', 'desc')->paginate(6);
+            return view('posts', compact('posts', 'recentPosts', 'categories'));
+        }
+        $posts = Post::with(['user', 'category'])->orderBy('id', 'desc')->paginate(6);
+
+        return view('posts', compact('posts', 'recentPosts', 'categories'));
     }
 
     public function getRecentPosts($offset = 0)
@@ -40,7 +50,7 @@ class PostsController extends Controller
 
     public function getRandomPosts($num = 6)
     {
-        return Post::with('user')->inRandomOrder()->limit($num)->get();
+        return Post::with(['user', 'category'])->inRandomOrder()->limit($num)->get();
     }
 
     /**
@@ -72,13 +82,15 @@ class PostsController extends Controller
      */
     public function show($slug)
     {
+
+        $categories = Category::getCategories();
         $recentPosts = $this->getRecentPosts();
 
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::with(['user', 'category'])->where('slug', $slug)->firstOrFail();
         $posts = collect();
         $posts->push($post);
 
-        return view('post-details', compact('posts', 'recentPosts'));
+        return view('post-details', compact('posts', 'recentPosts', 'categories'));
     }
 
     /**

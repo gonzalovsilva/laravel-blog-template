@@ -7,7 +7,7 @@
                 <div class="item-content">
                     <div class="main-content">
                         <div class="meta-category">
-                            <span>Fashion</span>
+                            <span>{{$randomPost->category->name}}</span>
                         </div>
                         <a href="/posts/{{ $randomPost->slug }}">
                             <h4>{{ $randomPost->title }}</h4>
