@@ -3,7 +3,7 @@
         <div {{ $attributes }}>
             <div class="blog-post">
                 <div class="blog-thumb">
-                    <img src="/images/blog-thumb-01.jpg" alt="">
+                    <img src="/images/{{$post->img}}" alt="">
                 </div>
                 <div class="down-content">
                     <span>Lifestyle</span>

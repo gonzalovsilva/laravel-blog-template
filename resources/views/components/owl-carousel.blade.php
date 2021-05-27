@@ -3,7 +3,7 @@
         @foreach ($randomPosts as $randomPost)
 
             <div class="item">
-                <img src="/images/banner-item-01.jpg" alt="">
+                <img src="/images/{{$randomPost->img}}" alt="">
                 <div class="item-content">
                     <div class="main-content">
                         <div class="meta-category">

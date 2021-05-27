@@ -29,6 +29,7 @@ class PostFactory extends Factory
             'excerpt' => $this->faker->realTextBetween(60, 120),
             'body' => $this->faker->paragraphs(5, true),
             'published_at' => now(),
+            'img' => $this->faker->image(public_path('images'), 730, 322, 'nature,landscapes', false)
         ];
     }
 }

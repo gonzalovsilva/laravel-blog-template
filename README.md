@@ -8,7 +8,7 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 - [x] add posts
 - [x] add pagination
 - [x] separate sections into components
-- [ ] connect post images
+- [x] connect post images
 - [ ] post-categories relationship
 - [ ] post-tags relationship
 - [ ] post-comments relationship
