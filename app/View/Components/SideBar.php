@@ -10,15 +10,19 @@ class SideBar extends Component
 {
     public $recentPosts;
     public $categories;
+    public $tags;
+    public $id;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($recentPosts=null, $categories=null)
+    public function __construct($recentPosts=null, $tags=null, $categories=null, $id = null)
     {
         $this->recentPosts = $recentPosts;
         $this->categories = $categories;
+        $this->tags = $tags;
+        $this->id = $id;
     }
 
     /**

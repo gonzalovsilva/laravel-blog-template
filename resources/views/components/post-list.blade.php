@@ -3,7 +3,7 @@
         <div {{ $attributes }}>
             <div class="blog-post">
                 <div class="blog-thumb">
-                    <img src="/images/{{$post->img}}" alt="">
+                    <img src="/images/{{ $post->img }}" alt="">
                 </div>
                 <div class="down-content">
                     <span>{{ $post->category->name }}</span>
@@ -27,14 +27,15 @@
                     <div class="post-options">
                         <div class="row">
                             @if ($details)
-                            <div class="col-lg-6">
-                            @else
-                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                @else
+                                    <div class="col-lg-12">
                             @endif
                             <ul class="post-tags">
                                 <li><i class="fa fa-tags"></i></li>
-                                <li><a href="#">Best Templates</a>,</li>
-                                <li><a href="#">TemplateMo</a></li>
+                                @foreach ($post->tags as $tag)
+                                    <li><a href="/posts/tag/{{ $tag->id }}">{{ $tag->name }}</a>,</li>
+                                @endforeach
                             </ul>
                         </div>
                         @if ($details)

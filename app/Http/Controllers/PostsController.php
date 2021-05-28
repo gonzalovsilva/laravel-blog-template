@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -15,37 +16,48 @@ class PostsController extends Controller
      */
     public function home()
     {
-        $categories = Category::getCategories();
-
+        $tags = Tag::select(['name', 'id'])->get();
+        $categories = $this->getCategories();
         $randomPosts = $this->getRandomPosts();
-        $posts = Post::with(['user', 'category'])->orderBy('id', 'desc')->take(6)->get();
+        $posts = Post::with(['user', 'category', 'tags'])->orderBy('id', 'desc')->take(6)->get();
         $recentPosts = $posts->skip(3);
         $posts->splice(3);
 
-        // dd($posts);
-
-        return view('welcome', compact('posts', 'recentPosts', 'randomPosts', 'categories'));
+        return view('welcome', compact('posts', 'recentPosts', 'randomPosts', 'categories', 'tags'));
     }
 
-    public function index($id = null)
+    public function index($filter = null, $id = null)
     {
-        $categories = Category::getCategories();
-
+        $tags = Tag::select(['name', 'id'])->get();
+        $categories = $this->getCategories();
         $recentPosts = $this->getRecentPosts();
 
-        if($id != null)
-        {
-            $posts = Post::with(['user', 'category'])->where('category_id', $id)->orderBy('id', 'desc')->paginate(6);
-            return view('posts', compact('posts', 'recentPosts', 'categories'));
+        if($filter != 'tag'){
+            $baseQuery = Post::with(['user', 'category', 'tags']);
         }
-        $posts = Post::with(['user', 'category'])->orderBy('id', 'desc')->paginate(6);
-
-        return view('posts', compact('posts', 'recentPosts', 'categories'));
+        switch ($filter) {
+            case 'category':
+                $posts = $baseQuery->where('category_id', $id)->orderBy('id', 'desc')->paginate(6);
+                break;
+            case 'tag':
+                $posts = Tag::with('posts')->where('id', $id)->firstOrFail()->posts()->with(['user', 'category', 'tags'])->orderBy('id', 'desc')->paginate(6);
+                // dd($posts);
+                break;
+            default:
+                $posts = $baseQuery->orderBy('id', 'desc')->paginate(6);
+                break;
+        }
+        return view('posts', compact('posts', 'recentPosts', 'categories', 'tags', 'filter', 'id'));
     }
 
     public function getRecentPosts($offset = 0)
     {
         return Post::orderBy('id', 'desc')->skip($offset)->limit(3)->get();
+    }
+
+    public function getCategories()
+    {
+        return Category::distinct('name')->get();
     }
 
     public function getRandomPosts($num = 6)
@@ -82,15 +94,15 @@ class PostsController extends Controller
      */
     public function show($slug)
     {
-
-        $categories = Category::getCategories();
+        $tags = Tag::select(['name', 'id'])->get();
+        $categories = $this->getCategories();
         $recentPosts = $this->getRecentPosts();
 
         $post = Post::with(['user', 'category'])->where('slug', $slug)->firstOrFail();
         $posts = collect();
         $posts->push($post);
 
-        return view('post-details', compact('posts', 'recentPosts', 'categories'));
+        return view('post-details', compact('posts', 'recentPosts', 'categories', 'tags'));
     }
 
     /**

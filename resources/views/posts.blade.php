@@ -13,15 +13,26 @@
                 <div class="col-lg-8">
                     <div class="all-blog-posts">
                         <div class="row">
+                            @if ($posts->total())
+                                <x-post-list :posts='$posts' :pagination=true class="col-lg-6"></x-post-list>
+                            @else
+                                <div class="col-lg-12">
+                                    @switch($filter)
+                                        @case('category')
+                                            <p>No posts found in this category</p>
+                                        @break
+                                        @case('tag')
+                                            <p>No posts found with this tag</p>
+                                        @break
 
-                            <x-post-list :posts='$posts' :pagination=true class="col-lg-6"></x-post-list>
+                                    @endswitch
+                                </div>
+                            @endif
 
                         </div>
                     </div>
                 </div>
-
-                <x-side-bar :categories='$categories' :recentPosts='$recentPosts'></x-side-bar>
-
+                <x-side-bar :id='$id' :categories='$categories' :tags='$tags' :recentPosts='$recentPosts'></x-side-bar>
             </div>
         </div>
     </section>

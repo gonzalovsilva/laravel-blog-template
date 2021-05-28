@@ -788,6 +788,11 @@ ul.page-numbers li a:hover {
 	color: #fff;
 }
 
+.sidebar .tags a.active {
+	background-color: #f48840;
+	border-color: #f48840;
+	color: #fff;
+}
 
 /* Footer */
 

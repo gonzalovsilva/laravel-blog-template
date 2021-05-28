@@ -11,7 +11,7 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 - [x] add post images
 - [x] post-categories relationship
 - [x] filter posts by category
-- [ ] post-tags relationship
+- [x] post-tags relationship
 - [ ] post-comments relationship
 - [ ] search
 - [ ] contact form
@@ -26,4 +26,5 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 * custom pagination style
 * sql query optimisation thanks to Eloquent and clockwork
 * seed images from unsplash using factories and faker
+* many-to-many relationships seeders
 * 

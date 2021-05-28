@@ -28,9 +28,10 @@ Route::get(
 )->name('posts');
 
 Route::get(
-    '/posts/category/{id}',
+    '/posts/{filter}/{id}',
     [PostsController::class, 'index']
 )->where('id', '[0-9]+');
+
 Route::get(
     '/posts/{post:slug}',
     [PostsController::class, 'show']

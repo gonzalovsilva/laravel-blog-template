@@ -67,7 +67,7 @@
                 </div>
 
 
-                <x-side-bar :categories='$categories' :recentPosts='$recentPosts'></x-side-bar>
+                <x-side-bar :categories='$categories' :tags='$tags' :recentPosts='$recentPosts'></x-side-bar>
 
             </div>
         </div>

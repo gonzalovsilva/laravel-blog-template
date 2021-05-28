@@ -41,7 +41,7 @@
                             @forelse ($categories as $category)
                                 <li><a href="/posts/category/{{ $category->id }}"> - {{ $category->name }}</a></li>
                             @empty
-                                <p>No categories found</p>
+                                <li>No categories found</li>
                             @endforelse
                         </ul>
                     </div>
@@ -54,13 +54,15 @@
                     </div>
                     <div class="content">
                         <ul>
-                            <li><a href="#">Lifestyle</a></li>
-                            <li><a href="#">Creative</a></li>
-                            <li><a href="#">HTML5</a></li>
-                            <li><a href="#">Inspiration</a></li>
-                            <li><a href="#">Motivation</a></li>
-                            <li><a href="#">PSD</a></li>
-                            <li><a href="#">Responsive</a></li>
+                            @forelse ($tags as $tag)
+                                @if ($id == $tag->id)
+                                    <li><a class='active' href="#">{{ $tag->name }}</a></li>
+                                @else
+                                    <li><a href="/posts/tag/{{ $tag->id }}">{{ $tag->name }}</a></li>
+                                @endif
+                            @empty
+                                <li>No tags found</li>
+                            @endforelse
                         </ul>
                     </div>
                 </div>
