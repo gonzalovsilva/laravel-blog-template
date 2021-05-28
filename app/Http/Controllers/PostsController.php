@@ -31,7 +31,7 @@ class PostsController extends Controller
         $tags = Tag::select(['name', 'id'])->get();
         $categories = $this->getCategories();
         $recentPosts = $this->getRecentPosts();
-
+        $active = null;
         if($filter != 'tag'){
             $baseQuery = Post::with(['user', 'category', 'tags']);
         }
@@ -40,6 +40,7 @@ class PostsController extends Controller
                 $posts = $baseQuery->where('category_id', $id)->orderBy('id', 'desc')->paginate(6);
                 break;
             case 'tag':
+                $active = $id;
                 $posts = Tag::with('posts')->where('id', $id)->firstOrFail()->posts()->with(['user', 'category', 'tags'])->orderBy('id', 'desc')->paginate(6);
                 // dd($posts);
                 break;
@@ -47,7 +48,7 @@ class PostsController extends Controller
                 $posts = $baseQuery->orderBy('id', 'desc')->paginate(6);
                 break;
         }
-        return view('posts', compact('posts', 'recentPosts', 'categories', 'tags', 'filter', 'id'));
+        return view('posts', compact('posts', 'recentPosts', 'categories', 'tags', 'filter', 'active'));
     }
 
     public function getRecentPosts($offset = 0)

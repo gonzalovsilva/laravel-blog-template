@@ -55,7 +55,7 @@
                     <div class="content">
                         <ul>
                             @forelse ($tags as $tag)
-                                @if ($id == $tag->id)
+                                @if ($active == $tag->id)
                                     <li><a class='active' href="#">{{ $tag->name }}</a></li>
                                 @else
                                     <li><a href="/posts/tag/{{ $tag->id }}">{{ $tag->name }}</a></li>

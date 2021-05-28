@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <x-side-bar :id='$id' :categories='$categories' :tags='$tags' :recentPosts='$recentPosts'></x-side-bar>
+                <x-side-bar :active='$active' :categories='$categories' :tags='$tags' :recentPosts='$recentPosts'></x-side-bar>
             </div>
         </div>
     </section>
