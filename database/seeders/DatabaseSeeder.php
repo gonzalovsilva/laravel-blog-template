@@ -18,15 +18,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        // \App\Models\Post::factory(30)->create()
-        // ->each(function ($post) {
-        //         $post->tags()->attach(
-        //             [Tag::pluck('id')->random()]
-        //         );
-        // });
+        \App\Models\User::factory(10)->create();
 
-        $posts = \App\Models\Post::factory(10)->create()->each(function ($post) {
+        $this->call([
+            CategoriesSeeder::class,
+            TagsSeeder::class,
+        ]);
+
+        \App\Models\Post::factory(20)->create()->each(function ($post) {
 
             $random = rand(1, 3);
             try {
@@ -39,17 +38,10 @@ class DatabaseSeeder extends Seeder
             }
         });
 
+        $this->call([
+            CommentsSeeder::class
+        ]);
+
 
     }
 }
-
-
-// ->each(function ($post) {
-//     $random = rand(1, 10);
-
-//     for ($i = 0; $i < $random; $i++) {
-//         $post->tags()->attach(
-//             [Tag::pluck('id')->random()]
-//         );
-//     }
-// });

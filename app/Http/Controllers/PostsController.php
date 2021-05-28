@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -99,11 +101,14 @@ class PostsController extends Controller
         $categories = $this->getCategories();
         $recentPosts = $this->getRecentPosts();
 
-        $post = Post::with(['user', 'category'])->where('slug', $slug)->firstOrFail();
+        $post = Post::with(['user', 'category', 'comments'])->where('slug', $slug)->firstOrFail();
+        $comments = Comment::with('post', 'user')->where('post_id', $post->id)->get();
+        // dd($comments->pluck(['user','id'], $comments));
+        // $comments = $post->comments()->get();
         $posts = collect();
         $posts->push($post);
 
-        return view('post-details', compact('posts', 'recentPosts', 'categories', 'tags'));
+        return view('post-details', compact('posts', 'recentPosts', 'categories', 'tags', 'comments'));
     }
 
     /**

@@ -12,7 +12,7 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 - [x] post-categories relationship
 - [x] filter posts by category
 - [x] post-tags relationship
-- [ ] post-comments relationship
+- [x] post-comments relationship
 - [ ] search
 - [ ] contact form
 - [ ] dashboard crud

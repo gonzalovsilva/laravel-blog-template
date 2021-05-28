@@ -15,7 +15,7 @@
                         <div class="row">
                             <x-post-list :posts='$posts' :details=true class="col-lg-12"></x-post-list>
 
-                            <x-comment-list></x-comment-list>
+                            <x-comment-list :comments='$comments' ></x-comment-list>
 
                             {{-- Begin Comment form --}}
                             <div class="col-lg-12">

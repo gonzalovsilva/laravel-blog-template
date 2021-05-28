@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class CommentList extends Component
 {
+    public $comments;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($comments = null)
     {
-        //
+        $this->comments = $comments;
     }
 
     /**
