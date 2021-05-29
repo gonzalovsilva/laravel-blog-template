@@ -13,7 +13,7 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 - [x] filter posts by category
 - [x] post-tags relationship
 - [x] post-comments relationship
-- [ ] search
+- [x] search
 - [ ] contact form
 - [ ] dashboard crud
 
@@ -27,4 +27,5 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 * sql query optimisation thanks to Eloquent and clockwork
 * seed images from unsplash using factories and faker
 * many-to-many relationships seeders
+* scopes for filtering queries
 * 

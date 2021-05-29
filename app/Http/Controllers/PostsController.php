@@ -28,27 +28,32 @@ class PostsController extends Controller
         return view('welcome', compact('posts', 'recentPosts', 'randomPosts', 'categories', 'tags'));
     }
 
-    public function index($filter = null, $id = null)
+    public function index(Request $request, $filter = null, $id = null)
     {
         $tags = Tag::select(['name', 'id'])->get();
         $categories = $this->getCategories();
         $recentPosts = $this->getRecentPosts();
         $active = null;
+
+        $search = $request->input('search');
         if($filter != 'tag'){
             $baseQuery = Post::with(['user', 'category', 'tags']);
         }
-        switch ($filter) {
-            case 'category':
-                $posts = $baseQuery->where('category_id', $id)->orderBy('id', 'desc')->paginate(6);
-                break;
-            case 'tag':
-                $active = $id;
-                $posts = Tag::with('posts')->where('id', $id)->firstOrFail()->posts()->with(['user', 'category', 'tags'])->orderBy('id', 'desc')->paginate(6);
-                // dd($posts);
-                break;
-            default:
-                $posts = $baseQuery->orderBy('id', 'desc')->paginate(6);
-                break;
+        if($search == null){
+            switch ($filter) {
+                case 'category':
+                    $posts = $baseQuery->where('category_id', $id)->orderBy('id', 'desc')->paginate(6);
+                    break;
+                case 'tag':
+                    $active = $id;
+                    $posts = Tag::with('posts')->where('id', $id)->get()[0]->posts()->with(['user', 'category', 'tags'])->orderBy('id', 'desc')->paginate(6);
+                    break;
+                default:
+                    $posts = $baseQuery->orderBy('id', 'desc')->paginate(6);
+                    break;
+            }
+        }else{
+            $posts = $baseQuery->latest()->filter()->paginate(6);
         }
         return view('posts', compact('posts', 'recentPosts', 'categories', 'tags', 'filter', 'active'));
     }
@@ -97,18 +102,24 @@ class PostsController extends Controller
      */
     public function show($slug)
     {
-        $tags = Tag::select(['name', 'id'])->get();
+        $tags = Tag::get();
         $categories = $this->getCategories();
         $recentPosts = $this->getRecentPosts();
 
-        $post = Post::with(['user', 'category', 'comments'])->where('slug', $slug)->firstOrFail();
-        $comments = Comment::with('post', 'user')->where('post_id', $post->id)->get();
-        // dd($comments->pluck(['user','id'], $comments));
+        // $post = Post::with(['user', 'category', 'comments'])->where('slug', $slug)->firstOrFail();
+        $post = Post::with(['tags', 'user', 'category', 'comments.user'])->where('slug', $slug)->firstOrFail();
+        // $comments = $post->comments()->with('user.name')->get();
+
+        // $comments = Comment::with('post', 'user')->where('post_id', $post->id)->get();
+
+        // dd($post);
         // $comments = $post->comments()->get();
         $posts = collect();
         $posts->push($post);
 
-        return view('post-details', compact('posts', 'recentPosts', 'categories', 'tags', 'comments'));
+        // dd($posts);
+
+        return view('post-details', compact('posts', 'recentPosts', 'categories', 'tags'));
     }
 
     /**

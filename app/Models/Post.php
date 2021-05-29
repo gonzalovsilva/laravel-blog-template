@@ -24,6 +24,16 @@ class Post extends Model
         'published_at',
     ];
 
+    public function scopeFilter($query) // Post::newQuery()->filter()
+    {
+        if(request('search')) {
+            $query
+            ->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('excerpt', 'like', '%' . request('search') . '%')
+            ->orWhere('body', 'like', '%' . request('search') . '%');
+        }
+    }
+
     public function getFormattedPublishedAtAttribute()
     {
 

@@ -5,13 +5,13 @@
         </div>
         <div class="content">
             <ul>
-                @foreach ($comments as $comment)
+                @foreach ($comments->comments as $comment)
                         <li>
                             <div class="author-thumb">
                                 <img src="/images/users/{{ $comment->img }}" alt="">
                             </div>
                             <div class="right-content">
-                                <h4>{{ $comment->user()->get()[0]->name }}<span>{{ $comment->formattedUpdatedAt }}</span></h4>
+                                <h4>{{ $comment->user->name }}<span>{{ $comment->formattedUpdatedAt }}</span></h4>
                                 <p>{{ $comment->message }}</p>
                             </div>
                         </li>

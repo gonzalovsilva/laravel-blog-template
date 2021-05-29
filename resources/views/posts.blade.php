@@ -24,7 +24,9 @@
                                         @case('tag')
                                             <p>No posts found with this tag</p>
                                         @break
-
+                                        @default
+                                        <p>No posts found</p>
+                                        @break
                                     @endswitch
                                 </div>
                             @endif
