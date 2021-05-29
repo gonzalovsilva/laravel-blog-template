@@ -17,6 +17,11 @@ Based on the `551 stand blog` theme made by [templatemo](https://templatemo.com/
 - [ ] contact form
 - [ ] dashboard crud
 
+
+## Tables
+
+![tables_diagram](readme_assets/tables_diagram.png)
+
 ## What I've learned
 
 * start a laravel 8 project with breeze
